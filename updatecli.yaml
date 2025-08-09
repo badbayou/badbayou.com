@@ -1,0 +1,79 @@
+name: Update Helm Chart Versions
+
+scms:
+  helm-chart:
+    kind: gitea
+    spec:
+      url: code.badbayou.com
+      owner: badbayou
+      repository: badbayou-helm
+      branch: master
+      username: '{{ requiredEnv "REGISTRY_USER" }}'
+      token: '{{ requiredEnv "REGISTRY_PASSWORD" }}'
+
+sources:
+  appVersion:
+    name: Get new app version from environment
+    kind: shell
+    spec:
+      command: echo "$NEW_APP_VERSION"
+      environments:
+        - name: NEW_APP_VERSION
+
+  currentChartVersion:
+    scmid: helm-chart
+    name: Get current chart version
+    kind: yaml
+    spec:
+      file: Chart.yaml
+      key: "$.version"
+
+targets:
+  updateAppVersion:
+    scmid: helm-chart
+    name: Update appVersion in Chart.yaml
+    kind: yaml
+    sourceid: appVersion
+    spec:
+      file: Chart.yaml
+      key: "$.appVersion"
+
+  updateChartVersion:
+    scmid: helm-chart
+    name: Increment chart version
+    kind: yaml
+    sourceid: currentChartVersion
+    spec:
+      file: Chart.yaml
+      key: "$.version"
+    transformers:
+      - semverinc: minor
+
+actions:
+  pullrequest:
+    kind: gitea/pullrequest
+    scmid: helm-chart
+    spec:
+      url: https://code.badbayou.com
+      owner: badbayou
+      repository: badbayou-helm
+      username: '{{ requiredEnv "REGISTRY_USER" }}'
+      token: '{{ requiredEnv "REGISTRY_PASSWORD" }}'
+      title: 'chore: bump chart version and app version to {{ source "appVersion" }}'
+      body: |
+        ## Summary
+
+        Automated version bump triggered by CI/CD pipeline following conventional commits.
+
+        ## Changes
+
+        - **Chart version**: incremented minor version
+        - **App version**: updated to {{ source "appVersion" }}
+
+        ## Type of Change
+
+        - [x] Chore (maintenance, dependencies, version bumps)
+
+        ---
+
+        This PR was automatically created by updatecli.

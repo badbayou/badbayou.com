@@ -1,0 +1,34 @@
+<header class="site-header">
+    <div class="container">
+        <div class="header-content">
+            <a href="{{ .Site.BaseURL }}" class="site-logo">
+                {{ .Site.Title }}
+            </a>
+
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <ul class="nav-menu">
+                    <li><a href="{{ .Site.BaseURL }}" {{ if .IsHome }}class="active" {{ end }}>Home</a></li>
+                    <li><a href="/posts" {{ if eq .Section "posts" }}class="active" {{ end }}>News</a>
+                    </li>
+                    <li><a href="{{ "" | relURL }}" {{ if eq .Title "About" }}class="active" {{ end }}>About</a>
+                    </li>
+                    <li><a href="{{ "" | relURL }}" {{ if eq .Title "Meetup" }}class="active" {{ end }}>Meetup</a></li>
+                    {{ if .Site.Params.contact_email }}
+                    <li><a href="{{ .Site.Params.discord_invite_url }}">Discord</a></li>
+                    {{ end }}
+                </ul>
+            </nav>
+
+            <div class="nav-controls">
+                <button class="mobile-nav-toggle" aria-label="Toggle mobile navigation" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+                    🌙
+                </button>
+            </div>
+        </div>
+    </div>
+</header>

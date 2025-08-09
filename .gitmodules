@@ -1,0 +1,3 @@
+[submodule "themes/hackerbayou"]
+	path = themes/hackerbayou
+	url = https://github.com/badbayou/hackerbayou-theme.git

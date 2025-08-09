@@ -1,0 +1,28 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <p>
+        &copy; {{ now.Format "2006" }} {{ .Site.Title }}. {{ if
+        .Site.Params.footer_text }} {{ .Site.Params.footer_text | safeHTML }} {{
+        else }}
+        <span class="terminal-prompt">Hack responsibly</span>
+        {{ end }}
+      </p>
+
+      {{ if .Site.Params.social }}
+      <div class="social-links" style="margin-top: 1rem">
+        {{ range .Site.Params.social }}
+        <a
+          href="{{ .url }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="{{ .name }}"
+        >
+          {{ .name }}
+        </a>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</footer>

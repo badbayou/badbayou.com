@@ -1,0 +1,18 @@
+name = "HackerBayou"
+license = "WTF"
+licenselink = "https://github.com/badbayou/hackerbayou-theme/LICENSE"
+description = "A minimal Hugo theme with automatic dark/light mode switching, designed for hacker groups and cybersecurity communities with a professional hacker aesthetic."
+homepage = "https://badbayou.com/"
+tags = ["blog", "minimal", "dark-mode", "hacker", "cybersecurity", "responsive", "clean"]
+features = ["responsive", "dark-mode", "light-mode", "minimal", "blog", "terminal-style"]
+min_version = "0.112.0"
+
+[author]
+  name = "beefcarver"
+  homepage = "https://github.com/beefcarver"
+
+# If using theme as a module
+# [module]
+#   [module.hugoVersion]
+#     extended = false
+#     min = "0.112.0"

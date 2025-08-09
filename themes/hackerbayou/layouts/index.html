@@ -1,0 +1,126 @@
+{{ define "main" }}
+<section class="hero">
+    <div class="container">
+        <h1>{{ .Site.Title }}</h1>
+        <p>{{ .Site.Params.description | default "A professional hacker group focused on cybersecurity, learning, and community." }}</p>
+
+        <div style="margin-top: 2rem;">
+            {{ if .Site.Params.cta_text }}
+            <a href="{{ .Site.Params.cta_link | default " #about" }}" class="btn btn-primary">
+                {{ .Site.Params.cta_text }}
+            </a>
+            {{ else }}
+            <a href="#about" class="btn btn-primary">Learn More</a>
+            {{ end }}
+
+            {{ if .Site.Params.meetup_link }}
+            <a href="{{ .Site.Params.meetup_link }}" class="btn" style="margin-left: 1rem;">
+                Join Meetup
+            </a>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+<section id="about" class="container" style="padding: 4rem 0;">
+    <div class="container-narrow">
+        {{ if .Content }}
+        {{ .Content }}
+        {{ else }}
+        <h2>About {{ .Site.Title }}</h2>
+        <p>We are a community of cybersecurity professionals, ethical hackers, and technology enthusiasts dedicated to
+            advancing knowledge in information security. Our group focuses on:</p>
+
+        <div class="grid grid-3" style="margin: 2rem 0;">
+            <div class="card">
+                <h3>🛡️ Security Research</h3>
+                <p>Exploring the latest vulnerabilities, attack vectors, and defense mechanisms in cybersecurity.</p>
+            </div>
+            <div class="card">
+                <h3>🎓 Education</h3>
+                <p>Sharing knowledge through workshops, presentations, and hands-on learning experiences.</p>
+            </div>
+            <div class="card">
+                <h3>🤝 Community</h3>
+                <p>Building connections between security professionals and fostering collaboration.</p>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</section>
+
+{{ if or (.Site.GetPage "section" "posts") (.Site.Params.show_recent_posts) }}
+<section class="container" style="padding: 2rem 0;">
+    <div class="container-narrow">
+        <h2>Recent News & Updates</h2>
+
+        {{ $posts := where .Site.RegularPages "Section" "posts" }}
+        {{ if $posts }}
+        {{ range first 3 $posts }}
+        <article class="card">
+            <div class="post-meta">
+                <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+                {{ if .Params.tags }}
+                <span style="margin-left: 1rem;">
+                    {{ range .Params.tags }}
+                    <span style="color: var(--accent-primary);">#{{ . }}</span>
+                    {{ end }}
+                </span>
+                {{ end }}
+            </div>
+            <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+            <p>{{ .Summary | truncate 150 }}</p>
+            <a href="{{ .Permalink }}" class="btn" style="margin-top: 1rem;">Read More</a>
+        </article>
+        {{ end }}
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="{{ "posts" | relURL }}" class="btn">View All Posts</a>
+        </div>
+        {{ else }}
+        <div class="card">
+            <p style="text-align: center; color: var(--text-tertiary);">
+                <span class="terminal-prompt">No posts yet. Check back soon for updates!</span>
+            </p>
+        </div>
+        {{ end }}
+    </div>
+</section>
+{{ end }}
+
+{{ if .Site.Params.meetup_info }}
+<section class="container" style="padding: 2rem 0;">
+    <div class="container-narrow">
+        <h2>Next Meetup</h2>
+        <div class="card">
+            {{ if .Site.Params.meetup_info.date }}
+            <div class="post-meta">
+                <span class="date">{{ .Site.Params.meetup_info.date }}</span>
+                {{ if .Site.Params.meetup_info.time }}
+                <span style="margin-left: 1rem;">{{ .Site.Params.meetup_info.time }}</span>
+                {{ end }}
+            </div>
+            {{ end }}
+
+            {{ if .Site.Params.meetup_info.title }}
+            <h3>{{ .Site.Params.meetup_info.title }}</h3>
+            {{ end }}
+
+            {{ if .Site.Params.meetup_info.description }}
+            <p>{{ .Site.Params.meetup_info.description }}</p>
+            {{ end }}
+
+            {{ if .Site.Params.meetup_info.location }}
+            <p><strong>Location:</strong> {{ .Site.Params.meetup_info.location }}</p>
+            {{ end }}
+
+            {{ if .Site.Params.meetup_info.rsvp_link }}
+            <a href="{{ .Site.Params.meetup_info.rsvp_link }}" class="btn btn-primary" style="margin-top: 1rem;">
+                RSVP Now
+            </a>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}
+{{ end }}

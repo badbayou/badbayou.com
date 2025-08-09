@@ -1,0 +1,12 @@
+{{ define "main" }}
+<div class="container-narrow">
+  <header style="margin-bottom: 3rem; text-align: center">
+    <h1>{{ .Title }}</h1>
+    {{ if .Description }}
+    <p style="color: var(--text-secondary)">{{ .Description }}</p>
+    {{ end }}
+  </header>
+
+  <div class="post-content">{{ .Content }}</div>
+</div>
+{{ end }}

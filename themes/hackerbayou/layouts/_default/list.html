@@ -1,0 +1,52 @@
+{{ define "main" }}
+<div class="container-narrow">
+  <header style="margin-bottom: 3rem; text-align: center">
+    <h1>{{ .Title | default "News" }}</h1>
+    {{ if .Description }}
+    <p style="color: var(--text-secondary)">{{ .Description }}</p>
+    {{ end }}
+  </header>
+
+  {{ $posts := .Pages }} {{ if $posts }}
+  <div class="posts-list">
+    {{ range $posts }}
+    <article class="card">
+      <div class="post-meta">
+        <span class="date">{{ .Date.Format "2006-01-02 15:04" }}</span>
+        {{ if .Params.author }}
+        <span style="margin-left: 1rem">by {{ .Params.author }}</span>
+        {{ end }} {{ if .Params.tags }}
+        <div style="margin-top: 0.5rem">
+          {{ range .Params.tags }}
+          <span style="color: var(--accent-primary); margin-right: 0.5rem"
+            >#{{ . }}</span
+          >
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+
+      <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+
+      {{ if .Params.description }}
+      <p style="font-style: italic; color: var(--text-tertiary)">
+        {{ .Params.description }}
+      </p>
+      {{ end }}
+
+      <div class="post-summary">{{ .Summary | truncate 200 }}</div>
+
+      <div style="margin-top: 1.5rem">
+        <a href="{{ .Permalink }}" class="btn"> Read More → </a>
+      </div>
+    </article>
+    {{ end }}
+  </div>
+  {{ else }}
+  <div class="card" style="text-align: center; padding: 3rem">
+    <h2>No content found</h2>
+    <p class="terminal-prompt">Check back soon for updates!</p>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

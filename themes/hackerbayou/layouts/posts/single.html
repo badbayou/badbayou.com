@@ -1,0 +1,78 @@
+{{ define "main" }}
+<article class="container-narrow">
+    <header class="post-header" style="margin-bottom: 3rem;">
+        <div class="post-meta">
+            <span class="date">{{ .Date.Format "2006-01-02 15:04" }}</span>
+            {{ if .Params.author }}
+            <span style="margin-left: 1rem;">by {{ .Params.author }}</span>
+            {{ end }}
+            {{ if .ReadingTime }}
+            <span style="margin-left: 1rem;">{{ .ReadingTime }} min read</span>
+            {{ end }}
+        </div>
+
+        <h1>{{ .Title }}</h1>
+
+        {{ if .Params.description }}
+        <p style="font-size: 1.2rem; color: var(--text-secondary); font-style: italic; margin-top: 1rem;">
+            {{ .Params.description }}
+        </p>
+        {{ end }}
+
+        {{ if .Params.tags }}
+        <div style="margin-top: 1rem;">
+            {{ range .Params.tags }}
+            <span style="color: var(--accent-primary); margin-right: 0.5rem;">#{{ . }}</span>
+            {{ end }}
+        </div>
+        {{ end }}
+    </header>
+
+    <div class="post-content">
+        {{ .Content }}
+    </div>
+
+    {{ if .Params.external_link }}
+    <div class="card" style="margin: 2rem 0; text-align: center;">
+        <h3>External Resource</h3>
+        <p>This post references an external resource:</p>
+        <a href="{{ .Params.external_link }}" class="btn btn-primary" target="_blank" rel="noopener">
+            View External Link ↗
+        </a>
+    </div>
+    {{ end }}
+
+    <footer class="post-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                {{ with .PrevInSection }}
+                <a href="{{ .Permalink }}" class="btn">← {{ .Title | truncate 30 }}</a>
+                {{ end }}
+            </div>
+
+            <div style="text-align: center;">
+                <a href="{{ " posts" | relURL }}" class="btn">All Posts</a>
+            </div>
+
+            <div>
+                {{ with .NextInSection }}
+                <a href="{{ .Permalink }}" class="btn">{{ .Title | truncate 30 }} →</a>
+                {{ end }}
+            </div>
+        </div>
+
+        {{ if .Site.Params.show_share_buttons }}
+        <div style="text-align: center; margin-top: 2rem;">
+            <p style="color: var(--text-tertiary); margin-bottom: 1rem;">Share this post:</p>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <a href="https://bsky.app/intent/compose?text={{ .Title }}%20{{ .Permalink }}" target="_blank"
+                    rel="noopener" class="btn">Bluesky</a>
+                <a href="https://mastodon.social/share?text={{ .Title }}%20{{ .Permalink }}" target="_blank"
+                    rel="noopener" class="btn">Mastodon</a>
+                <a href="mailto:?subject={{ .Title }}&body={{ .Permalink }}" class="btn">Email</a>
+            </div>
+        </div>
+        {{ end }}
+    </footer>
+</article>
+{{ end }}

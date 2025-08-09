@@ -1,0 +1,47 @@
+baseURL = 'https://www.badbayou.com/'
+languageCode = 'en-us'
+title = 'Bad Bayou'
+theme = 'hackerbayou'
+
+[params]
+  description = "Laissez Les Hack Temps Rouler"
+  author = "Bad Bayou"
+  keywords = "cybersecurity, hacking, security, meetup, community, louisiana, lafayette"
+
+  # Contact
+  contact_email = "root@badbayou.com"
+
+  # Discord
+  discord_invite_url = "/"
+
+  # Call to Action
+  cta_text = "Join Our Crew"
+  cta_link = "/"
+
+  # Meetup Integration
+  meetup_link = "/"
+
+  # Footer
+  footer_text = "Hack responsibly! 🐊"
+
+  # Features
+  show_recent_posts = true
+  show_share_buttons = false
+
+  # Next Meetup Info
+  [params.meetup_info]
+    title = "Monthly Security Gumbo"
+    date = "2030-01-01"
+    time = "00:00 CST"
+    location = "Undisclosed"
+    description = "Join us for a spicy mix of security topics, networking, and good times."
+    rsvp_link = "/"
+
+  # Social Links
+  [[params.social]]
+    name = "Discord"
+    url = "/"
+
+  # [[params.social]]
+  #   name = "Mastodon"
+  #   url = "https://badbayou.com"
