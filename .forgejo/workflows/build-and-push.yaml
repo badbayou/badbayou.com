@@ -29,7 +29,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            code.badbayou.com/badbayou/badbayou
+            code.badbayou.com/badbayou/badbayou.com
           flavor: |
             latest=true
           tags: |
